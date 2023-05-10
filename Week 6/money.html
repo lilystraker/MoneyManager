@@ -1,0 +1,331 @@
+<!-- 22052506
+    Lily Straker
+    Thurs 1pm PS 
+    COMP2020 -->
+    
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!-- My CSS -->
+        <link rel="stylesheet" href="../css/week6Styles.css">
+        <!-- My JS -->
+        <script src="../javascript/week6script.js"></script> 
+        
+        <!-- Anuphan Google font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@200;400&family=Cedarville+Cursive&display=swap" rel="stylesheet">
+        
+        <!-- Google icons -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+        <title>Mona's Money Manager</title>
+    </head>
+    
+    <!-- When the page loads, focus user on first input field -->
+    <body onload = "newPage()">
+        <main>
+            <h1>
+                Mona's Monthly Money Manager
+            </h1>
+            <p><i>
+                Use this money tracker to calculate your income, expenses, and savings.<br>
+                Enter a day, category, and amount for each income or expense you would like to record.<br><br>
+                Required fields: 
+                <b><span style = "color: rgb(255, 114, 114)">*
+            </span></b></i></p>
+            
+            <!-- When attempting to submit form, it will check validation first before posting -->
+            <form action = "https://twaaut.cdms.westernsydney.edu.au/twainfo/form.asp" method = "post" onsubmit = "return validate(this);">
+
+                <div id = "monthYear">
+                     <!-- Month input -->
+                    <div id = "monthContainer">
+                        <label for = "month"><span style = "color: rgb(255, 114, 114)">* </span>Month</label>
+                        <!-- When user stops focusing on month field, check validity -->
+                        <input type = "text" name = "month" placeholder = "mm" id = "month" tabindex = "1" onblur = "checkMonth();">
+                        <span class = "errorMessages" id = "monthError">Month is required</span>
+                        <span class = "errorMessages" id = "monthValueError">Enter an integer number from<br>1 to 12</span>
+                    </div>
+                    <!-- Year input -->
+                    <div id = "yearContainer">
+                        <label for = "year"><span style = "color: rgb(255, 114, 114)">* </span>Year</label>
+                        <!-- When user stops focusing on year field, check validity -->
+                        <input type = "text" name = "year" placeholder = "yyyy" id = "year" onblur = "checkYear();">
+                        <span class = "errorMessages" id = "yearError">Year is required</span>
+                        <span class = "errorMessages" id = "yearValueError">Enter a 4 digit integer between 1900 <br>and the current year</span>
+                    </div>
+                </div>
+                    
+                <div class = "formContainer">
+                    <!-- Income fieldset -->
+                        <fieldset>
+                            <h2>My Income</h2>
+                            <hr>
+                            
+                            <!-- First row of income fields -->
+                            <div class = "incomeRow">
+                                <!-- Container to style every input field -->
+                                <div class = "inputDevice">
+                                    <!-- Day input -->
+                                    <label for = "dayIn">Day</label>
+                                    <br><br>
+                                    <!-- When user stops focusing on day input, check validity of day and whether it is required -->
+                                    <input name = "dayIn" type = "text" class = "dayIn" id = "dayIn" placeholder = "dd" 
+                                    onblur = "checkRow(this, 'in'); checkDayValid(this, 'in', 0); ">
+                                </div>
+ 
+                                <div class = "inputDevice">
+                                    <!-- Category input -->
+                                    <label for = "categoryIn">Category</label>
+                                    <br><br>
+                                    <!-- when user stops focusing on field, check whether this field is required -->
+                                    <select name = "incomeType" class = "categoryIn" id = "categoryIn" onblur = "checkRow(this, 'in')">
+                                        <!-- User has the option of choosing NO options if they decide to not fill out a row -->
+                                        <option selected>No category chosen</option>
+                                        <option value = "wages">Salary/Wages</option>
+                                        <option value = "tips">Tips</option>
+                                        <option value = "interest">Interest</option>
+                                        <option value = "dividends">Dividends</option>
+                                        <option value = "other">Other</option>
+                                    </select>
+                                </div>
+
+                                <div class = "inputDevice">
+                                    <!-- Amount input -->
+                                    <label for = "amountIn">Amount ($)</label>
+                                    <br><br>
+                                    <!-- When user stops focusing on amount input, check validity of amount and whether it is required -->
+                                    <!-- if valid, calculate total income and savings -->
+                                    <input type = "text" name = "amountIn" class = "amountIn" id = "amountIn" placeholder="0.00"
+                                    onblur = "checkRow(this, 'in'); checkAmount(this, 'in', 0); calculateIncomeExpenses('in'); calculateSavings();">
+                                </div>
+
+                                <!-- (Hidden) error messages -->
+                                <span class = "rowInErrorMessages"><br>* Fill out the rest of this row</span>  
+                                <span class = "amountInValueError"><br>Only enter positive numbers for the amount<br>(max 15 digits and up to 2 decimal places)</span> 
+                                <span class = "dayInValueError">Only enter numbers between 1 and the last day of the month</span>
+
+                            <!-- end of first income row -->
+                            </div>
+
+                            <!-- second income row -->
+                            <div class = "incomeRow">
+                                <div class = "inputDevice">
+                                    <input name = "dayIn" type = "text" class = "dayIn" placeholder= "dd" 
+                                    onblur ="checkRow(this, 'in'); checkDayValid(this, 'in', 1);">    
+                                </div>
+                                    
+                                <div class = "inputDevice">
+                                    <select name = "incomeType" class = "categoryIn" onblur = "checkRow(this, 'in')">
+                                        <option selected>No category chosen</option>
+                                        <option value = "wages">Salary/Wages</option>
+                                        <option value = "tips">Tips</option>
+                                        <option value = "interest">Interest</option>
+                                        <option value = "dividends">Dividends</option>
+                                        <option value = "other">Other</option>
+                                    </select>
+                                </div>
+
+                                <div class = "inputDevice">
+                                    <input type = "text" name = "amountIn" class = "amountIn" placeholder="0.00"
+                                    onblur = "checkRow(this, 'in'); checkAmount(this, 'in', 1); calculateIncomeExpenses('in'); calculateSavings();">
+                                </div>
+
+                                <span class = "rowInErrorMessages"><br>* Fill out the rest of this row</span>   
+                                <span class = "amountInValueError"><br>Only enter positive numbers for the amount<br>(max 15 digits and up to 2 decimal places)</span> 
+                                <span class = "dayInValueError">Only enter numbers between 1 and the last day of the month</span>
+
+                            </div>
+
+                            <!-- third income row -->
+                            <div class = "incomeRow" id = "incomeRow">
+                                <div class = "inputDevice">
+                                    <input name = "dayIn" type = "text" class = "dayIn" placeholder= "dd" 
+                                    onblur = "checkRow(this, 'in'); checkDayValid(this, 'in', 2);">
+                                </div>
+                                    
+                                <div class = "inputDevice">
+                                    <select name = "incomeType" class = "categoryIn" onblur = "checkRow(this, 'in')">
+                                        <option selected>No category chosen</option>
+                                        <option value = "wages">Salary/Wages</option>
+                                        <option value = "tips">Tips</option>
+                                        <option value = "interest">Interest</option>
+                                        <option value = "dividends">Dividends</option>
+                                        <option value = "other">Other</option>
+                                    </select>
+                                </div>
+
+                                <div class = "inputDevice">                      
+                                    <input type = "text" name = "amountIn" class = "amountIn" placeholder="0.00" 
+                                    onblur = "checkRow(this, 'in'); checkAmount(this, 'in', 2); calculateIncomeExpenses('in'); calculateSavings();">   
+                                </div>
+                                    
+                                <span class = "rowInErrorMessages"><br>* Fill out the rest of this row</span>  
+                                <span class = "amountInValueError"><br>Only enter positive numbers for the amount<br>(max 15 digits and up to 2 decimal places)</span> 
+                                <span class = "dayInValueError">Only enter numbers between 1 and the last day of the month</span>
+                            </div>
+                                
+                            <!-- Container for any new rows to be added to -->
+                            <div id = "addNewI" class = "addNew"></div>
+
+                            <br>
+                            <br>
+                            
+                            <!-- When button is pressed, add a new row identical to those above -->
+                            <button type = "button" id = "addIncomeRow" onclick = "afterTextIncome();">
+                                <!-- Google Icons plus (+) symbol -->
+                                <span class="material-symbols-outlined">
+                                    add
+                                </span>
+                            </button>
+                            
+                            <!-- Instructions for button (especially if icon does not appear) -->
+                            <p>Add new income row</p>
+
+                            <hr>
+
+                            <!-- Total income label and sum -->
+                            <label class = "total">Total Income</label>
+                            <label id = "totalIncome">$0.00</label>
+                                
+                        </fieldset>
+
+                        <!-- Expense fieldset -->
+                        <fieldset>     
+                            <h2>My Expenses</h2>
+                            <hr>
+                                
+                            <!-- First expense row -->
+                            <div class = "expenseRow">
+                                <div class = "inputDevice">
+                                    <label for = "dayOut">Day</label><br><br>
+                                    <input name = "dayOut" type = "text" class = "dayOut" id = "dayOut" placeholder= "dd" 
+                                    onblur=" checkRow(this, 'out'); checkDayValid(this, 'out', 0);"> 
+                                </div>
+                                    
+                                <div class = "inputDevice">
+                                    <label for = "categoryOut">Category</label><br><br>
+                                    <select name = "expenseType" class = "categoryOut" id = "categoryOut" onblur = "checkRow(this, 'out')">
+                                        <option selected>No category chosen</option>
+                                        <option value = "rent">Rent/Mortgage</option>
+                                        <option value = "transport">Transport</option>
+                                        <option value = "food">Food</option>
+                                        <option value = "health">Health</option>
+                                        <option value = "education">Education</option>
+                                        <option value = "lifestyle">Lifestyle</option>
+                                        <option value = "other">Other</option>
+                                    </select>
+                                </div>
+    
+                                <div class = "inputDevice">
+                                    <label for = "amountOut">Amount ($)</label><br><br>
+                                    <input type = "text" name = "amountOut" class = "amountOut" id = "amountOut" placeholder="0.00" 
+                                    onblur = "checkRow(this, 'out'); checkAmount(this, 'out', 0); calculateIncomeExpenses('out'); calculateSavings();">
+                                </div>
+
+                                <span class = "rowOutErrorMessages"><br>* Fill out the rest of this row</span>  
+                                <span class = "amountOutValueError"><br>Only enter positive numbers for the amount<br>(max 15 digits and up to 2 decimal places)</span>  
+                                <span class = "dayOutValueError">Only enter numbers between 1 and the last day of the month</span>
+                                    
+                            </div>
+                            
+                            <!-- Secodn expense row -->
+                            <div class = "expenseRow">
+                                <div class = "inputDevice">
+                                    <input name = "dayOut" type = "text" class = "dayOut" placeholder= "dd" 
+                                    onblur ="checkRow(this, 'out'); checkDayValid(this, 'out', 1);"> 
+                                </div>
+                                    
+                                <div class = "inputDevice">
+                                    <select name = "expenseType" class = "categoryOut" onblur = "checkRow(this, 'out');">
+                                        <option selected>No category chosen</option>
+                                        <option value = "rent">Rent/Mortgage</option>
+                                        <option value = "transport">Transport</option>
+                                        <option value = "food">Food</option>
+                                        <option value = "health">Health</option>
+                                        <option value = "education">Education</option>
+                                        <option value = "lifestyle">Lifestyle</option>
+                                        <option value = "other">Other</option>
+                                    </select>
+                                </div>
+
+                                <div class = "inputDevice">
+                                    <input type = "text" name = "amountOut" class = "amountOut" placeholder="0.00" 
+                                    onblur = "checkRow(this, 'out'); checkAmount(this, 'out', 1); calculateIncomeExpenses('out'); calculateSavings();">
+                                </div>
+                                    
+                                <span class = "rowOutErrorMessages"><br>* Fill out the rest of this row</span>  
+                                <span class = "amountOutValueError"><br>Only enter positive numbers for the amount<br>(max 15 digits and up to 2 decimal places)</span>  
+                                <span class = "dayOutValueError">Only enter numbers between 1 and the last day of the month</span>
+                                    
+                            </div>
+
+                            <!-- Third expense row -->
+                            <div class = "expenseRow" id = "expenseRow">
+                                <div class = "inputDevice">
+                                    <input name = "dayOut" type = "text" class = "dayOut" placeholder= "dd" 
+                                    onblur = "checkRow(this, 'out'); checkDayValid(this, 'out', 2);">
+                                </div>
+                                    
+                                <div class = "inputDevice">
+                                    <select name = "expenseType" class = "categoryOut" onblur = "checkRow(this, 'out')">
+                                        <option selected>No category chosen</option>
+                                        <option value = "rent">Rent/Mortgage</option>
+                                        <option value = "transport">Transport</option>
+                                        <option value = "food">Food</option>
+                                        <option value = "health">Health</option>
+                                        <option value = "education">Education</option>
+                                        <option value = "lifestyle">Lifestyle</option>
+                                        <option value = "other">Other</option>
+                                    </select>
+                                </div>
+                            
+                                <div class = "inputDevice">   
+                                    <input type = "text" name = "amountOut" class = "amountOut" placeholder="0.00"
+                                    onblur = "checkAmount(this, 'out', 2); checkRow(this, 'out'); calculateIncomeExpenses('out'); calculateSavings();">   
+                                </div>
+                                
+                                <span class = "rowOutErrorMessages"><br><span style = "color: rgb(255, 114, 114)">* </span>Fill out the rest of this row</span>  
+                                <span class = "amountOutValueError"><br>Only enter positive numbers for the amount<br>(max 15 digits and up to 2 decimal places)</span>  
+                                <span class = "dayOutValueError">Only enter numbers between 1 and the last day of the month</span>      
+                            </div>
+                            
+                            <!-- Container to add new expenses row to -->
+                            <div id = "addNewE" class = "addNew"></div>
+                                
+                            <br>
+                            <br>
+
+                            <button type = "button" id = "addExpensesRow" onclick = "afterTextExpenses();">
+                                <span class="material-symbols-outlined">
+                                    add
+                                </span>   
+                            </button>
+                            
+                            <p>Add new expenses row</p>
+                            <hr>
+                                
+                            <label class = "total">Total Expenses</label>
+                            <label id = "totalExpenses">$0.00</label>
+                        </fieldset>
+                        
+                </div>
+                
+                <!-- Total savings -->
+                <!-- Calculated whenever a valid income or expense amount is entered -->
+                <div id = "savings">
+                    <label>Total Savings</label>
+                    <label id = "savingsAmount"><span style = "color: white">$0.00</span></label>
+                </div>
+                
+                <!-- Form submit button -->
+                <div id = "submitButton">
+                    <input type = "submit" value = "Submit" id ="submit">
+                </div>
+            
+            </form>
+        </main>
+    </body>
+</html> 
+            

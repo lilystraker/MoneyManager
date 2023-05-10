@@ -1,0 +1,316 @@
+/* 22052506
+Lily Straker
+Thurs 1pm PS 
+COMP2020 */
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #202124;
+}
+
+fieldset {
+    border: solid 1px rgba(255, 255, 255, 0.50);
+    border-radius: 5%;
+    padding: 10px;
+    margin-top: 20px; 
+    width: 500px;
+    margin: 10px;
+}
+
+h1 {
+    font-size: 2em;
+    color: #2a77db;
+    opacity: 87%;
+    font-family: 'Anuphan', sans-serif;
+}
+
+h2 {
+    font-size: 1.5em;
+    opacity: 87%;
+    color: white;
+    font-family: 'Anuphan', sans-serif;
+}
+
+.total {
+    font-size: 1.4em;
+    opacity: 87%;
+    color: white;
+    padding: 10px;
+    font-family: 'Anuphan', sans-serif;
+}
+
+#totalIncome, #totalExpenses {
+    font-size: 1.2em;
+    opacity: 87%;
+    color: #569dfa;
+    font-family: 'Anuphan', sans-serif;
+}
+
+#savings {
+    font-size: 1.6em;
+    opacity: 87%;
+    color: white;
+    font-family: 'Anuphan', sans-serif;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    display: block;
+}
+
+#monthYear {
+    font-size: 1.2em;
+    opacity: 87%;
+    color: white;
+    font-family: 'Anuphan', sans-serif;
+    text-align: left;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+}
+
+/* add income and add expenses buttons */
+#addIncomeRow, #addExpensesRow {
+    display: inline-block;
+    width: 50px;
+    font-size: 1em;
+    padding: 5px;
+    font-family: 'Anuphan', sans-serif;
+}
+
+p {
+    color: white;
+    opacity: 50%;
+    font-family: 'Anuphan', sans-serif;
+}
+
+#addIncomeRow:hover + p {
+    opacity: 87%;
+}
+
+#addExpensesRow:hover + p {
+    opacity: 87%;
+}
+
+/* month label and input */
+#monthContainer {
+    display: inline-block;
+    text-align: center;
+}
+
+/* month input itself */
+#month {
+    width: 60px;
+}
+
+/* year label and input */
+#yearContainer {
+    display: inline-block; 
+    text-align: center;
+    padding-left: 10px;
+}
+
+/* year input itself */
+#year {
+    width: 60px;
+}
+
+.incomeRow, .expenseRow {
+    margin-top: 30px;
+}
+
+/* by default, all error messages are hidden */
+.errorMessages {
+    display: none;
+    position: absolute;
+    padding: 10px;
+    color: rgb(255, 114, 114);
+    margin-top: 5px;
+    font-size: 0.8em;
+}
+
+/* allow space between year and month errors */
+#yearError, #yearValueError,  #yearDigitError {
+    margin-left: 30px;
+}
+
+/* row errors */
+.rowInErrorMessages, .rowOutErrorMessages {
+    display: none;
+    color: rgb(255, 114, 114);
+    margin-top: -21px;
+    font-family: 'Anuphan', sans-serif;
+    
+}
+
+/* amount errors */
+.amountInValueError, .amountOutValueError {
+    display: none;
+    color: rgb(255, 114, 114);
+    margin-top: -21px;
+    font-family: 'Anuphan', sans-serif;
+    
+}
+
+/* day errors */
+.dayInError, .dayInValueError, .dayOutError, .dayOutValueError {
+    display: none;
+    color: rgb(255, 114, 114);
+    margin-top: 0px;
+    font-family: 'Anuphan', sans-serif;
+    
+}
+
+/* do not apply this styling to 'savings' label and amount (last 2 label elements) */
+label:not(:nth-last-child(-n+2)){
+    opacity: 60%;
+    color: white;
+    font-size: 1.04em;
+    font-family: 'Anuphan', sans-serif;
+    margin-bottom: 50px;
+    padding: 10px;
+    text-align: left;
+}
+
+/* width of the amount input fields */
+.amountIn, .amountOut {
+    width: 80px;
+}
+
+/* Submit button */
+#submit {
+    background-color: #2a77db;
+    border-radius: 5%;
+    border: none;
+    color: white;
+    width: 100px;
+    height: 50px;
+    font-size: 1.3em;
+}
+
+/* When hovering over submit button */
+#submit:hover {
+    background-color: #1c539c;
+}
+
+/* When clicking on submit button */
+#submit:active {
+    background-color: #143d73;
+}
+
+/* container surrounding submit button */
+#submitButton {
+    margin-top: 50px;
+}
+
+/* Input and select fields */
+input, select {
+    padding: 10px;
+    font-size: 0.9em;
+    font-family: 'Anuphan', sans-serif;
+}
+
+/* All text centered by default */
+main {
+    text-align: center;
+    /* Allow spacing between last elements on page and bottom of page */
+    padding-bottom: 50px;
+}
+
+/* Using flexbox for the form */
+/* Two fieldsets -> they wrap onto 2 lines when screen width is too small */
+.formContainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 70%;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Second fieldset box leans towards right */
+fieldset:nth-child(even) {
+    margin-left: auto;
+}
+
+/* Apply to all input fields (input and select) */
+.inputDevice {
+    display: inline-block;
+    padding: 10px;
+}
+
+/* Savings box */
+/* Includes label and sum */
+#savings {
+    background-color: #202124;
+    border: 1px solid rgb(255, 255, 255, 0.67);
+    border-radius: 5%;
+    padding: 5px;
+    display: block;
+}
+
+/* horizontal line */
+/* less opacity */
+hr {
+    border: solid 1px rgb(255, 255, 255, 0.50);
+}
+
+/* width of day inputs */
+.dayIn, .dayOut {
+    width: 50px;
+}
+
+
+/* === MEDIA QUERIES === */
+
+/* Centre the income and expense sections when they wrap/when the screen is too small to fit them side by side */
+@media only screen and (max-width: 100vw) {
+    fieldset {
+        margin-left: auto;
+        margin-right: auto;
+    } 
+}
+
+/* Additional details for smaller screen sizes */
+@media only screen and (max-width: 793px) {
+    /* A border to section off individual rows of the form */
+      .incomeRow, .expenseRow {
+        border-bottom: solid 1px rgb(255, 255, 255, 0.67);
+      }
+
+      .amountIn, .amountOut {
+        margin-bottom: 20px;
+      }
+
+      fieldset {
+        /* When the height far exceeds the width, the curved border looks bad, so remove it */
+        border-radius: 0%;
+      }
+
+}
+
+/* Maximum mobile screen size */
+@media only screen and (max-width: 414px) {
+    /* All major containers now take up the entire width of the page */
+    .formContainer {
+        width: 100%;
+    }
+
+    .formContainer > fieldset {
+        width: 100%;
+      }
+
+    #monthYear {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Allocate space above the year field for month errors */
+    #yearContainer {
+        padding: 10px;
+        margin-top: 80px;
+    }
+}
+
