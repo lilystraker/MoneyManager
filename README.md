@@ -42,10 +42,10 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Money Manager is a web-based application that calculates your monthly savings. 
+Money Manager is a web-based application that tracks your income, expenses, and savings.
 
 <div id = "images">
-<!--   <img src = "https://github.com/lilystraker/MovieBuddy/blob/3e5afd3c487776110bf4d0b1d58128dbc1a7e8cb/app/src/main/res/drawable/addmovie.png" alt = "Screen for adding new movie to database"> -->
+  <img src = "https://github.com/lilystraker/PracSet1/blob/41c4f68464263bc0faebe20acbda0857d62463ad/images/homepage.png" alt = "Money manager home page">
 </div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
